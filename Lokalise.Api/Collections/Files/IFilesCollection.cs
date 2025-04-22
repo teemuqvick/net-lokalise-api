@@ -32,7 +32,14 @@ namespace Lokalise.Api.Collections.Files
         /// <para>Exports project files as a .zip bundle. Generated bundle will be uploaded to an Amazon S3 bucket, which will be stored there for 12 months available to download. As the bundle is generated and uploaded you would get a response with the URL to the file. Requires Download files admin right.</para>
         /// <para>There are two ways to group keys by filenames when you are exporting - either all keys to a single file per language or use the previously assigned filenames.</para>
         /// <para>Requires read_files OAuth access scope.</para>
+        /// <para>Please note: Starting June 1st, 2025, this endpoint will be limited to projects with under 10,000 key-language pairs.</para>
         /// </summary>
         public Task<DownloadedFiles?> DownloadAsync(string projectId, string format, Action<DownloadFileConfiguration>? options = null);
+        
+        /// <summary>
+        /// <para>Starts a project export process. The progress of the process can be tracked using the list all processes API endpoint. Once complete, the download URL can be accessed using the Retrieve process API endpoint.</para>
+        /// <para>For general details about the Download endpoint, please refer to the Download files API endpoint.</para>
+        /// </summary>
+        public Task<ExportProcess?> StartExportAsync(string projectId, string format, Action<DownloadFileConfiguration>? options = null);
     }
 }

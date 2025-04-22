@@ -55,6 +55,19 @@ namespace Lokalise.Api.Collections.Files
 
             return result;
         }
+        
+        /// <inheritdoc />
+        public async Task<ExportProcess?> StartExportAsync(string projectId, string format, Action<DownloadFileConfiguration>? options = null)
+        {
+            var cfg = new DownloadFileConfiguration();
+            options?.Invoke(cfg);
+
+            var result = await PostAsync<DownloadFileRequest, ExportProcess>(
+                $"{FilesUri(projectId, cfg.Branch)}/async-download",
+                new DownloadFileRequest(format, cfg));
+
+            return result;
+        }
 
         private async Task<UploadedFile?> UploadInternalAsync(string projectId, string data, string filename, string langIso, Action<UploadFileConfiguration>? options = null)
         {

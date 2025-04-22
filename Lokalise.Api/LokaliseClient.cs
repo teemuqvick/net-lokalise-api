@@ -8,6 +8,7 @@ using System;
 using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using Lokalise.Api.Collections.Processes;
 
 namespace Lokalise.Api
 {
@@ -20,6 +21,7 @@ namespace Lokalise.Api
 
         private IFilesCollection? _files;
         private IProjectsCollection? _projects;
+        private IProcessesCollection? _processes;
         private IBranchesCollection? _branches;
         private ICommentsCollection? _comments;
         private IContributorsCollection? _contributors;
@@ -44,6 +46,8 @@ namespace Lokalise.Api
         public IFilesCollection Files => _files ??= new FilesCollection(_httpClient, _jsonSerializerOptions);
 
         public IProjectsCollection Projects => _projects ??= new ProjectsCollection(_httpClient, _jsonSerializerOptions);
+        
+        public IProcessesCollection Processes => _processes ??= new ProcessesCollection(_httpClient, _jsonSerializerOptions);
 
         public IBranchesCollection Branches => _branches ??= new BranchesCollection(_httpClient, _jsonSerializerOptions);
 
